@@ -1,0 +1,20 @@
+q* is parameterised with state as well as action.
+
+q*(s,a) doesn't have to consider the action taken for THIS step as it's one of the provided parameters. The discounted q* for the next step should be the q* for the next state, and the action with the highest associated q value for that state.
+
+1. Initialization
+    V (s) ∈ R and π(s) ∈ A(s) arbitrarily for all s ∈ S
+2. Policy Evaluation
+    Repeat
+        ∆ ← 0
+        For each s ∈ S:
+            # Consider all available actions
+            For each a ∈ A(s):
+                # Update q to be the value of the defined action plus best next action
+                q ← Q (s,a)
+                Q (s,a) ← Sum(s',r)p(s',r|s,a)[r + γMax(a)(q*(s',a'))]
+                ∆ ← max(∆, |q − Q (s,a)|)
+        until ∆ < θ (a small positive number)
+3. Policy Improvement
+    Policy isn't stored separately.
+    Effective policy is stable one max(a)(q*(s,a)) stops changing
